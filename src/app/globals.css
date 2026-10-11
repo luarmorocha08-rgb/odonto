@@ -1,0 +1,209 @@
+@import "tailwindcss";
+
+/* ───────────────────────── Design system ───────────────────────── */
+@theme {
+  --color-taupe: #a18d89;
+  /* Variação mais escura do taupe para textos (contraste AA sobre off-white). */
+  --color-taupe-deep: #6f5d59;
+  --color-offwhite: #f0eeec;
+  --color-ink: #252525;
+  --color-blush: #d8cbc6;
+  --color-white: #ffffff;
+  --color-mist: #e6dfdc;
+
+  --font-display: var(--font-raleway), "Helvetica Neue", Arial, sans-serif;
+  --font-sans: var(--font-montserrat), "Helvetica Neue", Arial, sans-serif;
+
+  --ease-luxe: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-soft: cubic-bezier(0.33, 1, 0.68, 1);
+
+  --text-display: clamp(2.75rem, 1.4rem + 5.6vw, 7.25rem);
+  --text-display--line-height: 1.02;
+  --text-headline: clamp(2.25rem, 1.4rem + 3.4vw, 4.75rem);
+  --text-headline--line-height: 1.06;
+  --text-title: clamp(1.6rem, 1.2rem + 1.4vw, 2.5rem);
+  --text-title--line-height: 1.15;
+
+  --radius-arch: 999px 999px 28px 28px;
+}
+
+@layer base {
+  :root {
+    --page-bg: var(--color-offwhite);
+    --header-h: 76px;
+    color-scheme: light;
+  }
+
+  html {
+    -webkit-text-size-adjust: 100%;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    scroll-padding-top: var(--header-h);
+  }
+
+  /* Sem Lenis (movimento reduzido ou JS indisponível), usamos scroll nativo suave. */
+  html:not(.lenis) {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    background: var(--page-bg);
+    color: var(--color-ink);
+    font-family: var(--font-sans);
+    font-weight: 400;
+    transition: background-color 0.8s var(--ease-soft);
+    overflow-x: clip;
+  }
+
+  ::selection {
+    background: var(--color-blush);
+    color: var(--color-ink);
+  }
+
+  :focus-visible {
+    outline: 1.5px solid var(--color-ink);
+    outline-offset: 4px;
+    border-radius: 4px;
+  }
+
+  img {
+    user-select: none;
+  }
+}
+
+/* ───────────────────────── Lenis ───────────────────────── */
+html.lenis,
+html.lenis body {
+  height: auto;
+}
+.lenis.lenis-smooth [data-lenis-prevent] {
+  overscroll-behavior: contain;
+}
+.lenis.lenis-stopped {
+  overflow: clip;
+}
+
+/* ───────────────────────── Utilitários ───────────────────────── */
+@utility container-lux {
+  width: 100%;
+  margin-inline: auto;
+  max-width: 1440px;
+  padding-inline: clamp(1rem, 0.4rem + 3vw, 3.5rem);
+}
+
+@utility eyebrow {
+  font-family: var(--font-sans);
+  font-weight: 500;
+  font-size: 0.7rem;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+}
+
+@utility hairline {
+  height: 1px;
+  background: color-mix(in oklab, var(--color-ink) 16%, transparent);
+}
+
+@utility text-balance {
+  text-wrap: balance;
+}
+
+@utility text-pretty {
+  text-wrap: pretty;
+}
+
+/* Sublinhado animado dos links de navegação */
+@utility link-underline {
+  position: relative;
+  &::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: -4px;
+    height: 1px;
+    background: currentColor;
+    transform: scaleX(0);
+    transform-origin: right;
+    transition: transform 0.6s var(--ease-luxe);
+  }
+  &:hover::after,
+  &:focus-visible::after,
+  &[aria-current="true"]::after {
+    transform: scaleX(1);
+    transform-origin: left;
+  }
+}
+
+/* Grão sutil, aplicado às artes provisórias e fundos editoriais */
+@utility grain {
+  position: relative;
+  &::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    opacity: 0.12;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 .4 0 0 0 0 .35 0 0 0 0 .33 0 0 0 .55 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+    z-index: 1;
+  }
+}
+
+/* ───────────────────────── Estados iniciais das animações ─────────────────────────
+   A classe `motion-ok` é aplicada no <html> por um script inline somente quando o
+   visitante não pediu redução de movimento. Sem ela, todo o conteúdo fica visível. */
+.motion-ok [data-hero-fade],
+.motion-ok [data-hero-title],
+.motion-ok [data-hero-media] {
+  visibility: hidden;
+  /* Salvaguarda: se o JavaScript falhar, o conteúdo aparece mesmo assim. */
+  animation: reveal-failsafe 0s linear 3.5s forwards;
+}
+@keyframes reveal-failsafe {
+  to {
+    visibility: visible;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* Indicador de rolagem */
+@keyframes scroll-cue {
+  0% {
+    transform: scaleY(0);
+    transform-origin: top;
+  }
+  45% {
+    transform: scaleY(1);
+    transform-origin: top;
+  }
+  55% {
+    transform: scaleY(1);
+    transform-origin: bottom;
+  }
+  100% {
+    transform: scaleY(0);
+    transform-origin: bottom;
+  }
+}
+.animate-scroll-cue {
+  animation: scroll-cue 2.4s var(--ease-soft) infinite;
+}
+
+/* Barra de rolagem horizontal discreta para carrosséis mobile */
+.snap-carousel {
+  scrollbar-width: none;
+}
+.snap-carousel::-webkit-scrollbar {
+  display: none;
+}
