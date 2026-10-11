@@ -50,7 +50,7 @@ export function Footer() {
             <ul className="space-y-3 text-sm text-offwhite/75">
               <li>
                 <a href={whatsappUrl()} target="_blank" rel="noopener noreferrer" className="link-underline hover:text-offwhite">
-                  WhatsApp
+                  WhatsApp {siteConfig.whatsapp.display}
                 </a>
               </li>
               <li>

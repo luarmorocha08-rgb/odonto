@@ -57,7 +57,7 @@ export function organizationJsonLd() {
     },
     knowsAbout: publishedTreatments.map((t) => t.name),
   };
-  if (siteConfig.phone) data.telephone = siteConfig.phone;
+  data.telephone = siteConfig.phone ?? `+${siteConfig.whatsapp.number}`;
   if (siteConfig.email) data.email = siteConfig.email;
   if (responsible.name) {
     data.employee = { "@type": "Person", name: responsible.name, jobTitle: "Cirurgiã-dentista" };

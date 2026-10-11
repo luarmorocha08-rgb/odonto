@@ -84,10 +84,10 @@ Tudo respeita `prefers-reduced-motion`: nesse caso, nada é escondido nem animad
 ## WhatsApp e formulário
 
 - Todos os CTAs usam `src/lib/whatsapp.ts`.
-- **Com `NEXT_PUBLIC_WHATSAPP_NUMBER` definido**, os botões abrem conversas com mensagem pré-preenchida:
+- O número oficial **(13) 99741-2905** já está configurado em `src/config/site.ts` (pode ser trocado por `NEXT_PUBLIC_WHATSAPP_NUMBER`). Os botões abrem conversas com mensagem pré-preenchida:
   - geral: *"Olá! Conheci a J.A pelo site e gostaria de agendar uma avaliação."*
   - tratamento: *"Olá! Conheci a J.A Odontologia Estética pelo site e gostaria de saber mais sobre o procedimento de [TRATAMENTO]."*
-- **Sem o número**, o site usa o link provisório do Instagram (`wa.me/message/KW6TKPHWGNFLC1`), que **não aceita texto pré-preenchido**. O formulário, nesse caso, copia a mensagem para a área de transferência e avisa o visitante.
+- O formulário abre o WhatsApp com nome, telefone, tratamento de interesse e mensagem já preenchidos. (Se o número for removido da configuração, o site volta ao link do Instagram, que não aceita texto pré-preenchido — nesse caso o formulário copia a mensagem para a área de transferência.)
 - **Formulário:** nome, telefone (com máscara), tratamento de interesse, mensagem opcional e consentimento LGPD obrigatório. Validação no cliente e no servidor. Por padrão, envia para o WhatsApp; se `CONTACT_WEBHOOK_URL` estiver definido, envia para `/api/contact`, que repassa ao webhook (Zapier, Make, n8n, CRM…). O site não armazena os dados. Há honeypot anti-spam.
 
 ---
@@ -107,7 +107,7 @@ Tudo respeita `prefers-reduced-motion`: nesse caso, nada é escondido nem animad
 
 Itens marcados como provisórios no site até serem enviados:
 
-1. **Número oficial do WhatsApp** (com DDD) que aceite mensagens pré-preenchidas.
+1. ~~Número oficial do WhatsApp~~ — recebido e configurado: (13) 99741-2905.
 2. **Nome da responsável técnica e número do CRO** (obrigatórios na publicidade odontológica) — e, se aplicável, razão social e CNPJ.
 3. **Endereço completo, CEP e horário de funcionamento** (enquanto vazios, o site mostra apenas "Santos — SP" e oculta mapa e "Como chegar").
 4. **Fotografias profissionais**: hero, profissional/consultório, ambiente e uma por tratamento (JPG/WebP, mínimo 2000px no maior lado).
@@ -130,7 +130,7 @@ Itens marcados como provisórios no site até serem enviados:
 Recomendado: **Vercel** (suporte nativo a Next.js).
 
 1. Envie o repositório ao GitHub e importe o projeto na Vercel.
-2. Em *Settings → Environment Variables*, cadastre as variáveis do `.env.example` (no mínimo `NEXT_PUBLIC_SITE_URL` e `NEXT_PUBLIC_WHATSAPP_NUMBER`).
+2. Em *Settings → Environment Variables*, cadastre as variáveis do `.env.example` (no mínimo `NEXT_PUBLIC_SITE_URL`).
 3. Conecte o domínio próprio e atualize `NEXT_PUBLIC_SITE_URL` com ele.
 4. Após publicar, cadastre o sitemap (`/sitemap.xml`) no Google Search Console e mantenha o Perfil da Empresa no Google com os mesmos dados do site.
 

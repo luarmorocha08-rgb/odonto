@@ -62,7 +62,7 @@ export function Contact() {
                   params={{ location: "contact-info", channel: "whatsapp" }}
                   className="link-underline"
                 >
-                  Conversar com a clínica
+                  {siteConfig.whatsapp.display}
                 </TrackedAnchor>
               </InfoRow>
               {phone && (

@@ -11,11 +11,20 @@ const env = (value: string | undefined) => {
   return trimmed ? trimmed : undefined;
 };
 
-const whatsappNumber = env(process.env.NEXT_PUBLIC_WHATSAPP_NUMBER)?.replace(/\D/g, "");
+/** WhatsApp oficial da clínica: (13) 99741-2905. Pode ser sobrescrito pelo .env. */
+const DEFAULT_WHATSAPP = "5513997412905";
+const whatsappNumber = (env(process.env.NEXT_PUBLIC_WHATSAPP_NUMBER) ?? DEFAULT_WHATSAPP).replace(/\D/g, "");
 
 const street = env(process.env.NEXT_PUBLIC_ADDRESS_STREET);
 const district = env(process.env.NEXT_PUBLIC_ADDRESS_DISTRICT);
 const postalCode = env(process.env.NEXT_PUBLIC_ADDRESS_POSTAL_CODE);
+
+function formatBrPhone(digits: string) {
+  const local = digits.startsWith("55") ? digits.slice(2) : digits;
+  if (local.length !== 11 && local.length !== 10) return `+${digits}`;
+  const split = local.length - 4;
+  return `(${local.slice(0, 2)}) ${local.slice(2, split)}-${local.slice(split)}`;
+}
 
 export const siteConfig = {
   name: "J.A Odontologia Estética",
@@ -29,6 +38,8 @@ export const siteConfig = {
   whatsapp: {
     /** Número oficial (apenas dígitos, com DDI). Necessário para mensagens pré-preenchidas. */
     number: whatsappNumber,
+    /** Número formatado para exibição, ex.: (13) 99741-2905. */
+    display: formatBrPhone(whatsappNumber),
     /** Link provisório do Instagram — não aceita texto pré-preenchido. */
     fallbackUrl:
       env(process.env.NEXT_PUBLIC_WHATSAPP_FALLBACK_URL) ?? "https://wa.me/message/KW6TKPHWGNFLC1",
