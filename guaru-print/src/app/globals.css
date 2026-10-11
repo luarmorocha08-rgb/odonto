@@ -325,3 +325,21 @@
 .page-wipe {
   animation: page-wipe 0.75s cubic-bezier(0.76, 0, 0.24, 1) both;
 }
+
+/* Estados iniciais das animações de scroll (evita "piscar" antes do JS). */
+.motion-ok [data-phase]:not([data-phase="papel"]) {
+  visibility: hidden;
+}
+.motion-ok [data-layer] {
+  clip-path: inset(0 0 100% 0);
+}
+
+@keyframes obj-spin {
+  0%,
+  100% {
+    transform: rotateX(-18deg) rotateY(-30deg);
+  }
+  50% {
+    transform: rotateX(-8deg) rotateY(40deg);
+  }
+}

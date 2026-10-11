@@ -54,8 +54,9 @@ export function buildQuoteMessage({ items, customer, reference, fileLinks = [], 
   if (fileLinks.length) {
     out.push("*Arte enviada (link privado e temporário):*");
     for (const f of fileLinks) out.push(`${f.name}: ${f.url}`);
-  } else if (fileNames.length) {
-    out.push(`*Arte:* ${fileNames.join(", ")} — envio o arquivo nesta conversa.`);
+  }
+  if (fileNames.length) {
+    out.push(`*Arte${fileLinks.length ? " (outros arquivos)" : ""}:* ${fileNames.join(", ")} — envio nesta conversa.`);
   }
   if (customer.notes?.trim()) {
     out.push("");
