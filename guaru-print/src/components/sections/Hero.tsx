@@ -63,9 +63,9 @@ export function Hero() {
     () => {
       const mm = gsap.matchMedia();
       mm.add(MOTION_OK, () => {
-        const split = SplitText.create("[data-hero-title]", { type: "words,chars", mask: "words", aria: "auto" });
+        const split = SplitText.create("[data-hero-title]", { type: "words", mask: "words", aria: "auto" });
         const tl = gsap.timeline({ defaults: { ease: "expo.out" }, delay: 0.15 });
-        tl.from(split.chars, { yPercent: 115, duration: 1.2, stagger: 0.022 })
+        tl.from(split.words, { yPercent: 115, duration: 1.2, stagger: 0.07 })
           .from("[data-hero-fade]", { autoAlpha: 0, y: 24, duration: 1, stagger: 0.1 }, "-=0.8")
           .from("[data-hero-line]", { scaleX: 0, transformOrigin: "left", duration: 1.2 }, "<");
 
@@ -103,18 +103,18 @@ export function Hero() {
         <div className="absolute top-[35%] right-[-5%] size-[18vmax] rounded-full bg-yellow/10 blur-[100px]" />
       </div>
 
-      <div data-hero-scene aria-hidden className="absolute inset-0 -z-10 lg:left-[30%]">
+      <div data-hero-scene aria-hidden className="absolute inset-x-0 top-0 bottom-[45%] -z-10 opacity-35 lg:bottom-0 lg:left-[44%] lg:opacity-100">
         {quality !== "off" && <HeroScene quality={quality} reduced={reduced} active={active} />}
         <div className="absolute inset-x-0 bottom-0 h-1/3 bg-gradient-to-t from-ink to-transparent" />
         <div className="absolute inset-y-0 left-0 hidden w-1/3 bg-gradient-to-r from-ink to-transparent lg:block" />
       </div>
 
-      <div className="container-x relative flex min-h-[100svh] flex-col justify-end pt-[calc(var(--header-h)+2rem)] pb-16 md:pb-20">
-        <div data-hero-copy className="max-w-[60rem]">
+      <div className="container-x relative flex min-h-[100svh] flex-col justify-end pt-[calc(var(--header-h)+2rem)] pb-12 md:pb-16">
+        <div data-hero-copy className="max-w-[46rem]">
           <p data-hero-fade className="eyebrow">
             Da ideia à impressão · {siteConfig.city} - {siteConfig.state}
           </p>
-          <h1 id="hero-title" data-hero-title className="display-xl mt-6 [text-shadow:0_4px_40px_rgba(0,0,0,0.6)]">
+          <h1 id="hero-title" data-hero-title className="mt-6 font-display text-[clamp(2.6rem,6.6vw,6.4rem)] leading-[0.92] font-extrabold tracking-[-0.045em] uppercase [text-shadow:0_4px_40px_rgba(0,0,0,0.6)]">
             Sua ideia merece <span className="text-cmyk">ganhar destaque.</span>
           </h1>
           <span data-hero-line aria-hidden className="mt-8 block h-[3px] w-40 bg-gradient-to-r from-cyan via-magenta to-yellow" />
@@ -136,7 +136,7 @@ export function Hero() {
               <Sparkles className="size-4 text-yellow" aria-hidden /> Preciso de ajuda para escolher
             </button>
           </div>
-          <ul data-hero-fade className="mt-12 flex flex-wrap gap-x-8 gap-y-3 text-sm text-white/60">
+          <ul data-hero-fade className="mt-10 flex flex-wrap gap-x-8 gap-y-3 text-sm text-white/60">
             <li>
               <strong className="font-display text-2xl text-paper">{siteConfig.highlights.ordersDelivered}</strong>
               <span className="block">pedidos entregues</span>

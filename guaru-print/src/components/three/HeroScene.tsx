@@ -1,4 +1,5 @@
 "use client";
+/* eslint-disable react-hooks/immutability, react-hooks/purity -- buffers do three.js são gerados e mutados quadro a quadro, fora do ciclo de render do React */
 
 import { Environment, Lightformer, RoundedBox } from "@react-three/drei";
 import { Canvas, useFrame, useThree } from "@react-three/fiber";
@@ -78,7 +79,7 @@ function makeSignTexture() {
   ctx.textBaseline = "middle";
   ctx.font = `italic 800 150px ${displayFont()}, Arial Black, sans-serif`;
   ctx.shadowColor = "rgba(255,255,255,0.85)";
-  ctx.shadowBlur = 30;
+  ctx.shadowBlur = 16;
   ctx.fillStyle = "#ffffff";
   ctx.fillText("GUARU", canvas.width / 2, canvas.height * 0.3);
   ctx.fillText("PRINT", canvas.width / 2, canvas.height * 0.76);
@@ -180,7 +181,7 @@ function Sign({ progress }: { progress: React.RefObject<number> }) {
     }
     if (face.current) {
       face.current.opacity = e;
-      face.current.emissiveIntensity = e * 1.15;
+      face.current.emissiveIntensity = e * 0.75;
     }
     if (body.current) body.current.opacity = e;
     if (glow.current) glow.current.intensity = e * 6;
@@ -219,7 +220,7 @@ function Rig({ progress, pointer }: { progress: React.RefObject<number>; pointer
     const p = progress.current ?? 0;
     const m = pointer.current ?? { x: 0, y: 0 };
     // Câmera: começa afastada e "revela" o resultado.
-    const z = THREE.MathUtils.lerp(11, 7.2, easeInOut(p));
+    const z = THREE.MathUtils.lerp(12, 8.4, easeInOut(p));
     target.set(m.x * 0.9, m.y * 0.5 + 0.1, z);
     camera.position.lerp(target, 1 - Math.pow(0.001, delta));
     camera.lookAt(0, 0, 0);
@@ -276,7 +277,7 @@ export default function HeroScene({ quality, reduced, active }: { quality: "high
   return (
     <Canvas
       dpr={quality === "high" ? [1, 1.75] : [1, 1.25]}
-      camera={{ position: [0, 0, 11], fov: 40 }}
+      camera={{ position: [0, 0, 12], fov: 40 }}
       gl={{ antialias: quality === "high", alpha: true, powerPreference: "high-performance" }}
       frameloop={active ? "always" : "never"}
       aria-hidden

@@ -140,6 +140,13 @@
     background-clip: text;
     color: transparent;
   }
+  /* SplitText envolve palavras em <div>: cada uma recebe o gradiente. */
+  .text-cmyk div {
+    background: inherit;
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
 
   .card {
     background: linear-gradient(180deg, rgba(255, 255, 255, 0.045), rgba(255, 255, 255, 0.015));

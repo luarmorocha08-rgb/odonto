@@ -101,6 +101,7 @@ export function PrintingPress() {
         // Vira panfleto: sai da máquina, gira e ganha destaque.
         phase("ok", 4.7);
         tl.to(q("[data-head]"), { autoAlpha: 0, duration: 0.2 }, 4.6)
+          .set(q("[data-sheet-clip]"), { clipPath: "inset(-60% -60% -60% -60%)" }, 4.7)
           .to(q("[data-printer]"), { yPercent: 30, autoAlpha: 0.15, scale: 0.9, duration: 0.8, ease: "power2.in" }, 4.7)
           .to(q("[data-sheet-wrap]"), { y: "-6vh", rotateX: 0, rotateZ: -4, scale: 1.12, duration: 1, ease: "power2.out" }, 4.8)
           .to(q("[data-sheet]"), { boxShadow: "0 60px 90px -30px rgba(0,0,0,0.9), 0 0 0 1px rgba(255,255,255,0.1)", duration: 0.6 }, 5)
@@ -159,7 +160,9 @@ export function PrintingPress() {
             </div>
 
             {/* Folha */}
-            <div data-sheet-wrap className="absolute inset-x-[14%] top-[15%] bottom-[2%] z-10 [transform:rotateX(18deg)] [transform-origin:top]">
+            {/* Recorte: a folha só aparece a partir da saída da impressora */}
+            <div data-sheet-clip className="absolute inset-x-0 top-[13%] bottom-0 z-10 [clip-path:inset(0_-40%_-40%_-40%)] [perspective:1400px]">
+            <div data-sheet-wrap className="absolute inset-x-[14%] top-[2%] bottom-[2%] [transform:rotateX(18deg)] [transform-origin:top]">
               <div data-sheet className="relative h-full overflow-hidden rounded-[4px] bg-white shadow-[0_30px_60px_-20px_rgba(0,0,0,0.8)]">
                 {(["c", "m", "y", "k"] as const).map((ch) => (
                   <ArtLayer key={ch} channel={ch} />
@@ -172,6 +175,7 @@ export function PrintingPress() {
                 />
                 <div data-shine aria-hidden className="absolute inset-y-0 -left-1/2 w-1/3 -skew-x-12 bg-gradient-to-r from-transparent via-white/50 to-transparent" />
               </div>
+            </div>
             </div>
           </div>
         </div>

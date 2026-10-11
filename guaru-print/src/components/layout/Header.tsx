@@ -121,9 +121,11 @@ export function Header() {
                 )}
               </AnimatePresence>
             </Link>
-            <Button href="/orcamento" size="sm" className="ml-1 hidden sm:inline-flex" track={{ name: "quote_start", params: { location: "header" } }}>
-              Solicitar orçamento
-            </Button>
+            <span className="ml-1 hidden sm:block">
+              <Button href="/orcamento" size="sm" track={{ name: "quote_start", params: { location: "header" } }}>
+                Solicitar orçamento
+              </Button>
+            </span>
             <button
               type="button"
               onClick={() => setOpen((o) => !o)}

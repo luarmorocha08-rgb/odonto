@@ -20,7 +20,9 @@ export function FileDrop({ files, onChange }: { files: CheckedFile[]; onChange: 
   const [busy, setBusy] = useState(false);
   const [errors, setErrors] = useState<string[]>([]);
   const filesRef = useRef(files);
-  filesRef.current = files;
+  useEffect(() => {
+    filesRef.current = files;
+  }, [files]);
 
   // Libera as prévias da memória ao sair.
   useEffect(() => () => filesRef.current.forEach((f) => f.previewUrl && URL.revokeObjectURL(f.previewUrl)), []);

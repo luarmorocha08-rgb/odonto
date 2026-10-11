@@ -22,6 +22,7 @@ export type PriceRule = {
   minQuantity?: number;
 };
 
+// eslint-disable-next-line @typescript-eslint/no-unused-vars -- assinatura reservada para a futura tabela de preços
 export function estimate(_item: QuoteItem, _rules: PriceRule[]): number | null {
   if (!PRICING_ENABLED) return null;
   return null;

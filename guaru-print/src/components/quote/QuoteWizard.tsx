@@ -4,7 +4,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { ArrowRight, Check, CheckCircle2, ClipboardList, Copy, Loader2, Lock, Pencil, RotateCcw, Trash2 } from "lucide-react";
 import { useSearchParams } from "next/navigation";
 import { AnimatePresence, motion } from "motion/react";
-import { useEffect, useMemo, useRef, useState } from "react";
+import { useMemo, useRef, useState } from "react";
 import { useForm, type Resolver } from "react-hook-form";
 import { WhatsAppIcon } from "@/components/ui/BrandIcons";
 import type { ProductKey } from "@/content/types";
@@ -86,6 +86,8 @@ export function QuoteWizard() {
       setProduct(p);
       setEditing(null);
       setStep(1);
+    } else if (params.get("etapa") === "arte" && quoteList.get().length) {
+      setStep(2);
     } else if (prefill.width && prefill.height) {
       setStep(0);
     }
@@ -133,7 +135,7 @@ export function QuoteWizard() {
     setStatus("sending");
     setError(null);
     const data = customerSchema.parse(customer.getValues());
-    const items: QuoteItem[] = list.map(({ id: _id, addedAt: _a, ...item }) => item);
+    const items: QuoteItem[] = list.map(({ product, quantity, width, height, unit, details }) => ({ product, quantity, width, height, unit, details }));
 
     try {
       // 1) Referência + URLs de upload (quando há armazenamento seguro).
@@ -198,8 +200,7 @@ export function QuoteWizard() {
     setProgress(null);
     quoteList.clear();
     // Tenta abrir direto; se o navegador bloquear, o botão abaixo continua disponível.
-    const win = window.open(url, "_blank");
-    if (win) win.opener = null;
+    window.open(url, "_blank", "noopener,noreferrer");
     requestAnimationFrame(() => top.current?.scrollIntoView({ behavior: "smooth", block: "start" }));
   };
 
