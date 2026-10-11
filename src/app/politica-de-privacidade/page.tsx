@@ -34,11 +34,8 @@ export default function PrivacyPage() {
             {company.cnpj ? `, inscrita no CNPJ ${company.cnpj}` : ""}, clínica de odontologia estética e harmonização
             facial localizada em Santos — SP, que atua como controladora dos dados pessoais tratados por meio dele.
             Responsável técnica:{" "}
-            {responsible.name && responsible.cro ? (
-              `${responsible.name} — ${responsible.cro}`
-            ) : (
-              <Placeholder>nome e CRO</Placeholder>
-            )}
+            {responsible.name ?? <Placeholder>nome</Placeholder>} —{" "}
+            {responsible.cro ?? <Placeholder>CRO</Placeholder>}
             .
           </p>
         </section>

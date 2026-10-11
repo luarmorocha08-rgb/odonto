@@ -108,7 +108,7 @@ Tudo respeita `prefers-reduced-motion`: nesse caso, nada é escondido nem animad
 Itens marcados como provisórios no site até serem enviados:
 
 1. ~~Número oficial do WhatsApp~~ — recebido e configurado: (13) 99741-2905.
-2. **Nome da responsável técnica e número do CRO** (obrigatórios na publicidade odontológica) — e, se aplicável, razão social e CNPJ.
+2. **Número do CRO da responsável técnica** (Dra. Analita Barbosa — nome já configurado). Obrigatório na publicidade odontológica; enquanto faltar, o rodapé mostra "[CRO a definir]". Se aplicável, razão social e CNPJ.
 3. ~~Endereço e horário~~ — configurados: Avenida Ana Costa, Santos (coordenadas -23.9592, -46.3318), segunda a sábado das 9h às 18h. **Faltam número do imóvel/sala, bairro e CEP**, para o endereço completo na tela e no Google.
 4. **Fotografias profissionais**: hero, profissional/consultório, ambiente e uma por tratamento (JPG/WebP, mínimo 2000px no maior lado).
 5. **Logotipo oficial em vetor (SVG)** — o atual foi reconstruído em tipografia (`components/ui/Logo.tsx`).

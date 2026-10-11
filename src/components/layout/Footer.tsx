@@ -93,12 +93,12 @@ export function Footer() {
             {/* Informações profissionais obrigatórias — preenchidas via variáveis de ambiente. */}
             <p>
               Responsável técnica:{" "}
-              {responsible.name && responsible.cro ? (
-                <>
-                  {responsible.name} — {responsible.cro}
-                </>
-              ) : (
-                <span className="rounded bg-offwhite/10 px-1.5 py-0.5 text-blush">[nome e CRO a definir]</span>
+              {responsible.name ?? (
+                <span className="rounded bg-offwhite/10 px-1.5 py-0.5 text-blush">[nome a definir]</span>
+              )}{" "}
+              —{" "}
+              {responsible.cro ?? (
+                <span className="rounded bg-offwhite/10 px-1.5 py-0.5 text-blush">[CRO a definir]</span>
               )}
             </p>
             {company.legalName && company.cnpj && (

@@ -91,7 +91,8 @@ export const siteConfig = {
   ],
 
   responsible: {
-    name: env(process.env.NEXT_PUBLIC_RESPONSIBLE_NAME),
+    name: env(process.env.NEXT_PUBLIC_RESPONSIBLE_NAME) ?? "Dra. Analita Barbosa",
+    /** ⚠️ Pendente: informar no formato "CRO-SP 00000". */
     cro: env(process.env.NEXT_PUBLIC_RESPONSIBLE_CRO),
   },
 
