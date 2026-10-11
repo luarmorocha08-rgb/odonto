@@ -15,9 +15,16 @@ const env = (value: string | undefined) => {
 const DEFAULT_WHATSAPP = "5513997412905";
 const whatsappNumber = (env(process.env.NEXT_PUBLIC_WHATSAPP_NUMBER) ?? DEFAULT_WHATSAPP).replace(/\D/g, "");
 
-const street = env(process.env.NEXT_PUBLIC_ADDRESS_STREET);
+// Dados informados pela clínica. Variáveis de ambiente, se definidas, têm prioridade.
+// Número do imóvel, bairro e CEP ainda não foram informados.
+const street = env(process.env.NEXT_PUBLIC_ADDRESS_STREET) ?? "Avenida Ana Costa";
 const district = env(process.env.NEXT_PUBLIC_ADDRESS_DISTRICT);
 const postalCode = env(process.env.NEXT_PUBLIC_ADDRESS_POSTAL_CODE);
+
+const toNumber = (value: string | undefined, fallback: number) => {
+  const parsed = Number(env(value));
+  return Number.isFinite(parsed) && env(value) ? parsed : fallback;
+};
 
 function formatBrPhone(digits: string) {
   const local = digits.startsWith("55") ? digits.slice(2) : digits;
@@ -66,7 +73,22 @@ export const siteConfig = {
       : undefined,
   },
 
-  openingHours: env(process.env.NEXT_PUBLIC_OPENING_HOURS),
+  /** Coordenadas exatas da clínica (usadas no mapa, na rota e no Google). */
+  geo: {
+    latitude: toNumber(process.env.NEXT_PUBLIC_GEO_LAT, -23.9592),
+    longitude: toNumber(process.env.NEXT_PUBLIC_GEO_LNG, -46.3318),
+  },
+
+  /** Texto exibido no site. */
+  openingHours: env(process.env.NEXT_PUBLIC_OPENING_HOURS) ?? "Segunda a sábado, das 9h às 18h",
+  /** Versão estruturada para o Google (Schema.org). Mantenha em sincronia com o texto acima. */
+  openingHoursSpec: [
+    {
+      days: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"],
+      opens: "09:00",
+      closes: "18:00",
+    },
+  ],
 
   responsible: {
     name: env(process.env.NEXT_PUBLIC_RESPONSIBLE_NAME),
@@ -99,7 +121,8 @@ export const navLinks = [
   { label: "Contato", href: "/#contato" },
 ] as const;
 
-/** Link de rota para o Google Maps (usa o endereço completo quando existir). */
+/** Destino do mapa e da rota: as coordenadas exatas, mais precisas que o endereço sem número. */
 export function mapsQuery() {
-  return siteConfig.address.full ?? `${siteConfig.name}, Santos - SP`;
+  const { latitude, longitude } = siteConfig.geo;
+  return `${latitude},${longitude}`;
 }

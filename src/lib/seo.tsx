@@ -55,6 +55,18 @@ export function organizationJsonLd() {
       ...(address.street && { streetAddress: address.street }),
       ...(address.postalCode && { postalCode: address.postalCode }),
     },
+    geo: {
+      "@type": "GeoCoordinates",
+      latitude: siteConfig.geo.latitude,
+      longitude: siteConfig.geo.longitude,
+    },
+    hasMap: `https://www.google.com/maps?q=${siteConfig.geo.latitude},${siteConfig.geo.longitude}`,
+    openingHoursSpecification: siteConfig.openingHoursSpec.map((h) => ({
+      "@type": "OpeningHoursSpecification",
+      dayOfWeek: h.days,
+      opens: h.opens,
+      closes: h.closes,
+    })),
     knowsAbout: publishedTreatments.map((t) => t.name),
   };
   data.telephone = siteConfig.phone ?? `+${siteConfig.whatsapp.number}`;

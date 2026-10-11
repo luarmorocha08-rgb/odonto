@@ -9,7 +9,7 @@ import { useState } from "react";
  */
 export function MapEmbed({ query }: { query: string }) {
   const [loaded, setLoaded] = useState(false);
-  const src = `https://www.google.com/maps?q=${encodeURIComponent(query)}&output=embed`;
+  const src = `https://www.google.com/maps?q=${encodeURIComponent(query)}&z=17&output=embed`;
 
   return (
     <div className="relative aspect-[16/10] overflow-hidden rounded-[24px] bg-blush">

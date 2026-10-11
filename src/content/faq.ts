@@ -32,6 +32,6 @@ export const faq: FaqItem[] = [
   {
     question: "Onde fica a clínica?",
     answer:
-      "A J.A Odontologia Estética fica em Santos — SP. Consulte a seção Contato para o endereço completo e rotas, ou peça a localização pelo WhatsApp.",
+      "A J.A Odontologia Estética fica na Avenida Ana Costa, em Santos — SP. Na seção Contato você encontra o mapa e o botão “Como chegar”. O atendimento é de segunda a sábado, das 9h às 18h.",
   },
 ];
