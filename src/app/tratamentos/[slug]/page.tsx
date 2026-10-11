@@ -164,9 +164,9 @@ export default async function TreatmentPage({ params }: Props) {
         <div className="container-lux flex flex-col gap-10 md:flex-row md:items-end md:justify-between">
           <div>
             <p className="eyebrow text-ink/70">Avaliação personalizada</p>
-            <p data-reveal="lines" className="mt-5 max-w-2xl font-display text-headline font-extralight text-balance">
+            <h2 data-reveal="lines" className="mt-5 max-w-2xl font-display text-headline font-extralight text-balance">
               Vamos conversar sobre o seu caso?
-            </p>
+            </h2>
           </div>
           <div className="flex flex-col items-start gap-6">
             <WhatsAppCta location="treatment-page-footer" treatment={ctaTreatment}>

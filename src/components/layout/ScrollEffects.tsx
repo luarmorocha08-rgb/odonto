@@ -113,7 +113,6 @@ export function ScrollEffects() {
         if (footer && footerInner) {
           gsap.from(footerInner, {
             yPercent: -30,
-            opacity: 0.2,
             ease: "none",
             scrollTrigger: { trigger: footer, start: "top bottom", end: "bottom bottom", scrub: true },
           });

@@ -1,55 +1,41 @@
 "use client";
 
-import { useRef } from "react";
+import { useRef, type CSSProperties } from "react";
 import { images } from "@/content/images";
 import { ButtonLink, WhatsAppCta } from "@/components/ui/CtaLink";
 import { Media } from "@/components/ui/Media";
 import { RotatingBadge } from "@/components/ui/RotatingBadge";
-import { gsap, MOTION_OK, SplitText, useGSAP } from "@/lib/gsap";
+import { gsap, MOTION_OK, useGSAP } from "@/lib/gsap";
 import { scrollToHash, useLenis } from "@/components/layout/SmoothScroll";
+
+/** Palavras do título, cada uma revelada por máscara com atraso progressivo. */
+function HeroWords({ words, offset }: { words: string[]; offset: number }) {
+  return words.map((word, i) => (
+    <span key={word + i}>
+      {i > 0 && " "}
+      <span className="-my-[0.12em] -mr-[0.1em] inline-block overflow-hidden py-[0.12em] pr-[0.1em] align-bottom">
+        <span data-hero-word style={{ "--i": offset + i } as CSSProperties}>
+          {word}
+        </span>
+      </span>
+    </span>
+  ));
+}
 
 export function Hero() {
   const root = useRef<HTMLElement>(null);
   const lenis = useLenis();
 
+  // A entrada é feita em CSS (globals.css); aqui fica apenas o parallax.
   useGSAP(
     () => {
       const mm = gsap.matchMedia();
       mm.add(MOTION_OK, () => {
-        const title = root.current!.querySelector<HTMLElement>("[data-hero-title]")!;
-        const media = root.current!.querySelector<HTMLElement>("[data-hero-media]")!;
-        const mediaInner = media.querySelector<HTMLElement>("[data-hero-media-inner]");
-        // Fora do escopo da seção: elementos do cabeçalho.
-        const headerItems = Array.from(document.querySelectorAll<HTMLElement>("header [data-hero-fade]"));
-        const fades = gsap.utils.toArray<HTMLElement>("[data-hero-fade]", root.current);
-
-        const split = SplitText.create(title, { type: "words", mask: "words", aria: "auto" });
-
-        const tl = gsap.timeline({ defaults: { ease: "expo.out" }, delay: 0.15 });
-        tl.set([title, media, ...headerItems, ...fades], { visibility: "visible" })
-          // 1. Logotipo e menu surgem suavemente
-          .from(headerItems, { autoAlpha: 0, y: -12, duration: 1.2, stagger: 0.08 })
-          // 2. Título palavra por palavra
-          .from(split.words, { yPercent: 115, duration: 1.4, stagger: 0.07 }, 0.25)
-          // 3 e 4. Fotografia sobe e é revelada por máscara
-          .fromTo(
-            media,
-            { clipPath: "inset(100% 0% 0% 0% round 999px 999px 0px 0px)", y: 80 },
-            { clipPath: "inset(0% 0% 0% 0% round 999px 999px 0px 0px)", y: 0, duration: 1.8, ease: "expo.inOut" },
-            0.35,
-          )
-          .from(mediaInner, { scale: 1.35, duration: 2.4 }, 0.6)
-          // 5 e 6. Textos de apoio, botões e indicação de scroll com leve atraso
-          .from(fades, { autoAlpha: 0, y: 24, duration: 1.2, stagger: 0.1 }, 1.05);
-
-        // Parallax discreto na fotografia principal
         gsap.to("[data-hero-parallax]", {
           yPercent: 12,
           ease: "none",
           scrollTrigger: { trigger: root.current, start: "top top", end: "bottom top", scrub: true },
         });
-
-        return () => split.revert();
       });
     },
     { scope: root },
@@ -77,10 +63,12 @@ export function Hero() {
 
           <h1
             id="hero-title"
-            data-hero-title
             className="font-display text-display font-extralight tracking-[-0.035em] text-balance"
           >
-            Realce sua beleza. <em className="font-light text-taupe-deep italic">Preserve sua essência.</em>
+            <HeroWords words={["Realce", "sua", "beleza."]} offset={0} />{" "}
+            <em className="font-light text-taupe-deep italic">
+              <HeroWords words={["Preserve", "sua", "essência."]} offset={3} />
+            </em>
           </h1>
 
           <p data-hero-fade className="mt-7 max-w-md text-[0.95rem] leading-relaxed text-ink/75 md:mt-9 md:text-base">

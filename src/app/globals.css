@@ -150,19 +150,47 @@ html.lenis body {
   }
 }
 
-/* ───────────────────────── Estados iniciais das animações ─────────────────────────
-   A classe `motion-ok` é aplicada no <html> por um script inline somente quando o
-   visitante não pediu redução de movimento. Sem ela, todo o conteúdo fica visível. */
-.motion-ok [data-hero-fade],
-.motion-ok [data-hero-title],
-.motion-ok [data-hero-media] {
-  visibility: hidden;
-  /* Salvaguarda: se o JavaScript falhar, o conteúdo aparece mesmo assim. */
-  animation: reveal-failsafe 0s linear 3.5s forwards;
+/* ───────────────────────── Entrada do hero ─────────────────────────
+   Animação em CSS puro: começa no primeiro paint, sem esperar o JavaScript
+   (melhor LCP no celular). A classe `motion-ok` é aplicada no <html> por um
+   script inline somente quando o visitante não pediu redução de movimento. */
+.motion-ok [data-hero-fade] {
+  animation: hero-fade 1.2s var(--ease-luxe) var(--d, 1.05s) both;
 }
-@keyframes reveal-failsafe {
+.motion-ok [data-hero-word] {
+  display: inline-block;
+  animation: hero-word 1.4s var(--ease-luxe) calc(0.25s + var(--i, 0) * 0.07s) both;
+}
+.motion-ok [data-hero-media] {
+  animation: hero-mask 1.8s cubic-bezier(0.87, 0, 0.13, 1) 0.35s both;
+}
+.motion-ok [data-hero-media-inner] {
+  animation: hero-zoom 2.4s var(--ease-luxe) 0.6s both;
+}
+@keyframes hero-fade {
+  from {
+    opacity: 0;
+    transform: translateY(var(--y, 24px));
+  }
+}
+@keyframes hero-word {
+  from {
+    transform: translateY(115%);
+  }
+}
+@keyframes hero-mask {
+  from {
+    clip-path: inset(100% 0% 0% 0%);
+    transform: translateY(80px);
+  }
   to {
-    visibility: visible;
+    clip-path: inset(0% 0% 0% 0%);
+    transform: none;
+  }
+}
+@keyframes hero-zoom {
+  from {
+    transform: scale(1.35);
   }
 }
 

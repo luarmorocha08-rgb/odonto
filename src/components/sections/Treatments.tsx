@@ -101,6 +101,7 @@ export function Treatments() {
       ref={root}
       aria-labelledby="tratamentos-title"
       data-tone="blush"
+      data-hide-float
       className="relative overflow-hidden py-24 md:py-32 lg:flex lg:h-[100svh] lg:flex-col lg:justify-center lg:pt-20 lg:pb-6"
     >
       <div className="container-lux">

@@ -19,7 +19,10 @@ export function Header() {
   const [active, setActive] = useState<string>("#inicio");
   const menuButton = useRef<HTMLButtonElement>(null);
   // Na home, os elementos do cabeçalho participam da animação de abertura.
-  const heroFade = pathname === "/" ? { "data-hero-fade": "" } : {};
+  const heroFade = (delay: number) =>
+    pathname === "/"
+      ? { "data-hero-fade": "", style: { "--d": `${delay}s`, "--y": "-12px" } as React.CSSProperties }
+      : {};
 
   // Barra com blur após o início da página.
   useEffect(() => {
@@ -95,13 +98,13 @@ export function Header() {
             href="/#inicio"
             onClick={(e) => handleNav(e, "/#inicio")}
             className="relative z-10 rounded-full"
-            {...heroFade}
-            aria-label="J.A Odontologia Estética — início"
+            {...heroFade(0.15)}
           >
             <Logo />
+            <span className="sr-only"> — início</span>
           </Link>
 
-          <nav aria-label="Navegação principal" className="hidden lg:block" {...heroFade}>
+          <nav aria-label="Navegação principal" className="hidden lg:block" {...heroFade(0.25)}>
             <ul className="flex items-center gap-8 xl:gap-10">
               {navLinks.map((link) => (
                 <li key={link.href}>
@@ -118,7 +121,7 @@ export function Header() {
             </ul>
           </nav>
 
-          <div className="relative z-10 flex items-center gap-3" {...heroFade}>
+          <div className="relative z-10 flex items-center gap-3" {...heroFade(0.35)}>
             <WhatsAppCta location="menu" className="hidden min-h-11 px-5 sm:inline-flex">
               Agendar avaliação
             </WhatsAppCta>

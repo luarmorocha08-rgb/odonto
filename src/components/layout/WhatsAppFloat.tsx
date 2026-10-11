@@ -18,7 +18,18 @@ export function WhatsAppFloat() {
   const [visible, setVisible] = useState(false);
 
   useEffect(() => {
-    const onScroll = () => setVisible(window.scrollY > window.innerHeight * 0.6);
+    const desktop = window.matchMedia("(min-width: 1024px)");
+    const onScroll = () => {
+      // No desktop, some enquanto uma seção marcada com data-hide-float ocupa a
+      // tela (ex.: vitrine de tratamentos fixada, que já tem CTAs próprios).
+      const covered =
+        desktop.matches &&
+        Array.from(document.querySelectorAll<HTMLElement>("[data-hide-float]")).some((el) => {
+          const r = el.getBoundingClientRect();
+          return r.top <= 1 && r.bottom >= window.innerHeight - 1;
+        });
+      setVisible(window.scrollY > window.innerHeight * 0.6 && !covered);
+    };
     onScroll();
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);

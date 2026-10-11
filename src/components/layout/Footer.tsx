@@ -77,12 +77,16 @@ export function Footer() {
           </div>
         </div>
 
-        <p
+        {/* Marca d'água decorativa em SVG (não é conteúdo textual) */}
+        <svg
           aria-hidden
-          className="pointer-events-none mt-20 font-display text-[28vw] leading-[0.8] font-extralight tracking-[-0.08em] text-offwhite/[0.06] select-none md:text-[22vw]"
+          viewBox="0 0 100 34"
+          className="pointer-events-none mt-20 block w-[78%] fill-offwhite/[0.06] select-none md:w-[62%]"
         >
-          J.A
-        </p>
+          <text x="-1" y="30" className="font-display" fontSize="40" fontWeight="200" letterSpacing="-3">
+            J.A
+          </text>
+        </svg>
 
         <div className="mt-6 flex flex-col gap-6 border-t border-offwhite/10 pt-8 text-xs leading-relaxed text-offwhite/60 md:flex-row md:items-end md:justify-between">
           <div className="space-y-1">
