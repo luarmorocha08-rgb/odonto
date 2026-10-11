@@ -2,8 +2,8 @@
  * Fotografias institucionais.
  *
  * Coloque os arquivos em /public/images e informe o caminho em `src`.
- * Enquanto `src` for `null`, o site mostra uma arte provisória com a
- * identidade da marca (claramente identificada como provisória).
+ * Enquanto `src` for `null`, o site mostra uma ilustração na identidade da
+ * marca (arcos, linhas finas e pérola), decorativa.
  */
 import type { MediaAsset } from "./types";
 

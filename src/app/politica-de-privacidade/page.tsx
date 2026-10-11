@@ -1,5 +1,6 @@
 import { siteConfig } from "@/config/site";
 import { pageMetadata } from "@/lib/seo";
+import { whatsappUrl } from "@/lib/whatsapp";
 
 export const metadata = pageMetadata({
   title: "Política de Privacidade",
@@ -7,9 +8,6 @@ export const metadata = pageMetadata({
   path: "/politica-de-privacidade",
 });
 
-const Placeholder = ({ children }: { children: string }) => (
-  <span className="rounded bg-blush px-1.5 py-0.5 text-[0.9em]">[{children}]</span>
-);
 
 export default function PrivacyPage() {
   const { company, responsible, email } = siteConfig;
@@ -22,8 +20,7 @@ export default function PrivacyPage() {
         Política de Privacidade
       </h1>
       <p className="mt-6 text-sm text-ink/60">
-        Modelo base — revise com assessoria jurídica antes da publicação. Última atualização:{" "}
-        <Placeholder>data</Placeholder>
+        Última atualização: 11 de outubro de 2026
       </p>
 
       <div className="mt-14 max-w-3xl space-y-10 text-[0.98rem] leading-relaxed text-ink/80 [&_h2]:mb-3 [&_h2]:font-sans [&_h2]:text-lg [&_h2]:font-medium [&_h2]:text-ink [&_li]:ml-5 [&_li]:list-disc [&_ul]:space-y-2">
@@ -33,10 +30,13 @@ export default function PrivacyPage() {
             Este site pertence a {controller}
             {company.cnpj ? `, inscrita no CNPJ ${company.cnpj}` : ""}, clínica de odontologia estética e harmonização
             facial localizada em Santos — SP, que atua como controladora dos dados pessoais tratados por meio dele.
-            Responsável técnica:{" "}
-            {responsible.name ?? <Placeholder>nome</Placeholder>} —{" "}
-            {responsible.cro ?? <Placeholder>CRO</Placeholder>}
-            .
+            {responsible.name && (
+              <>
+                {" "}
+                Responsável técnica: {responsible.name}
+                {responsible.cro && ` — ${responsible.cro}`}.
+              </>
+            )}
           </p>
         </section>
 
@@ -81,7 +81,8 @@ export default function PrivacyPage() {
           <h2>5. Por quanto tempo guardamos</h2>
           <p>
             Os dados de contato são mantidos pelo tempo necessário para atender à sua solicitação e cumprir
-            obrigações legais. Prazo de retenção: <Placeholder>definir prazo</Placeholder>.
+            obrigações legais. Quando não houver mais finalidade para mantê-los, os dados são excluídos ou
+            anonimizados.
           </p>
         </section>
 
@@ -97,7 +98,17 @@ export default function PrivacyPage() {
         <section>
           <h2>7. Contato do encarregado (DPO)</h2>
           <p>
-            Para exercer seus direitos ou tirar dúvidas: {email ?? <Placeholder>e-mail do encarregado</Placeholder>}.
+            Para exercer seus direitos ou tirar dúvidas, fale com a clínica pelo WhatsApp{" "}
+            <a href={whatsappUrl()} className="underline underline-offset-4" target="_blank" rel="noopener noreferrer">
+              {siteConfig.whatsapp.display}
+            </a>
+            {email && (
+              <>
+                {" "}
+                ou pelo e-mail <a href={`mailto:${email}`} className="underline underline-offset-4">{email}</a>
+              </>
+            )}
+            .
           </p>
         </section>
       </div>

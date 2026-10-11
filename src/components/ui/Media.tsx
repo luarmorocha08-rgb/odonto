@@ -10,12 +10,12 @@ type Props = {
   className?: string;
   imgClassName?: string;
   tone?: "light" | "deep";
-  /** Exibe a etiqueta "Imagem provisória" na arte substituta. */
+  /** Exibe a etiqueta "Imagem ilustrativa" na arte substituta. */
   showLabel?: boolean;
 };
 
 /**
- * Exibe a fotografia configurada ou, na ausência dela, a arte provisória.
+ * Exibe a fotografia configurada ou, na ausência dela, a ilustração da marca.
  * O elemento pai deve definir o tamanho (o conteúdo é posicionado com `fill`).
  */
 export function Media({ asset, sizes, priority, className, imgClassName, tone, showLabel }: Props) {

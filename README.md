@@ -103,19 +103,22 @@ Tudo respeita `prefers-reduced-motion`: nesse caso, nada é escondido nem animad
 
 ---
 
-## O que a clínica precisa fornecer
+## Situação atual e pendências
 
-Itens marcados como provisórios no site até serem enviados:
+Publicado com o que foi confirmado pela clínica:
 
-1. ~~Número oficial do WhatsApp~~ — recebido e configurado: (13) 99741-2905.
-2. **Número do CRO da responsável técnica** (Dra. Analita Barbosa — nome já configurado). Obrigatório na publicidade odontológica; enquanto faltar, o rodapé mostra "[CRO a definir]". Se aplicável, razão social e CNPJ.
-3. ~~Endereço e horário~~ — configurados: Avenida Ana Costa, Santos (coordenadas -23.9592, -46.3318), segunda a sábado das 9h às 18h. **Faltam número do imóvel/sala, bairro e CEP**, para o endereço completo na tela e no Google.
-4. **Fotografias profissionais**: hero, profissional/consultório, ambiente e uma por tratamento (JPG/WebP, mínimo 2000px no maior lado).
-5. **Logotipo oficial em vetor (SVG)** — o atual foi reconstruído em tipografia (`components/ui/Logo.tsx`).
-6. **Revisão dos textos dos tratamentos e do FAQ** pela profissional — confirmando quais procedimentos são de fato oferecidos.
-7. **Imagens de resultados e depoimentos**, somente com consentimento por escrito dos pacientes.
-8. **Política de Privacidade** revisada juridicamente (há campos `[entre colchetes]` a completar) e e-mail do encarregado (DPO).
-9. Opcional: IDs do **GA4** e do **Meta Pixel**; URL de **webhook** para receber o formulário.
+- WhatsApp (13) 99741-2905 · Avenida Ana Costa, Santos (coordenadas -23.9592, -46.3318) · segunda a sábado, 9h às 18h
+- Responsável técnica: Dra. Analita Barbosa
+- Imagens: ilustrações na identidade da marca no lugar das fotografias
+
+Não informados (o site omite esses campos, sem marcadores de pendência):
+
+1. **CRO da responsável técnica** — ⚠️ obrigatório pelo Código de Ética Odontológica em toda publicidade. Adicione em `NEXT_PUBLIC_RESPONSIBLE_CRO` (ex.: `CRO-SP 00000`) assim que possível; aparece automaticamente no rodapé e na Política de Privacidade.
+2. **Número/sala, bairro e CEP** do endereço (`NEXT_PUBLIC_ADDRESS_STREET`, `_DISTRICT`, `_POSTAL_CODE`).
+3. **Fotografias** (Dra. Analita, consultório, ambiente): basta salvar em `public/images/` e preencher `src` em `content/images.ts` e nos tratamentos.
+4. **Galeria de resultados**: as fotos de antes/depois do Instagram **não** foram publicadas por falta de confirmação de autorização por escrito das pacientes. Com os termos em mãos, adicione-as em `content/gallery.ts`.
+5. **Revisão profissional** dos textos dos tratamentos e do FAQ; revisão jurídica da Política de Privacidade.
+6. Opcional: e-mail, CNPJ/razão social, IDs do GA4/Meta Pixel, webhook do formulário.
 
 ### Conformidade
 

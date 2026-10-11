@@ -5,16 +5,17 @@ import { cn } from "@/lib/cn";
 type Props = {
   variant?: ArtVariant;
   className?: string;
-  /** Exibe a etiqueta "Imagem provisória". */
+  /** Exibe a etiqueta "Imagem ilustrativa" (desligada por padrão). */
   showLabel?: boolean;
   tone?: "light" | "deep";
 };
 
 /**
- * Arte editorial provisória na identidade da marca.
- * Usada no lugar das fotografias enquanto a clínica não envia as imagens oficiais.
+ * Ilustração editorial na identidade da marca (arcos, linhas finas, pérola).
+ * Usada no lugar das fotografias enquanto não houver imagens oficiais; é
+ * decorativa e fica oculta para leitores de tela.
  */
-export function ArtPlaceholder({ variant = "arch", className, showLabel = true, tone = "light" }: Props) {
+export function ArtPlaceholder({ variant = "arch", className, showLabel = false, tone = "light" }: Props) {
   const id = useId().replace(/:/g, "");
   const stroke = tone === "deep" ? "#F0EEEC" : "#252525";
 
@@ -25,8 +26,7 @@ export function ArtPlaceholder({ variant = "arch", className, showLabel = true, 
         tone === "deep" ? "bg-[#8f7c78]" : "bg-blush",
         className,
       )}
-      role="img"
-      aria-label="Imagem provisória — fotografia oficial da clínica a ser inserida"
+      aria-hidden
     >
       <svg
         className="absolute inset-0 h-full w-full"
@@ -134,7 +134,7 @@ export function ArtPlaceholder({ variant = "arch", className, showLabel = true, 
             tone === "deep" ? "bg-ink/15 text-offwhite" : "bg-white/50 text-ink/70",
           )}
         >
-          Imagem provisória
+          Imagem ilustrativa
         </span>
       )}
     </div>

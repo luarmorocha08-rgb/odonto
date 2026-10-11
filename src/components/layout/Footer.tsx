@@ -91,16 +91,12 @@ export function Footer() {
         <div className="mt-6 flex flex-col gap-6 border-t border-offwhite/10 pt-8 text-xs leading-relaxed text-offwhite/60 md:flex-row md:items-end md:justify-between">
           <div className="space-y-1">
             {/* Informações profissionais obrigatórias — preenchidas via variáveis de ambiente. */}
-            <p>
-              Responsável técnica:{" "}
-              {responsible.name ?? (
-                <span className="rounded bg-offwhite/10 px-1.5 py-0.5 text-blush">[nome a definir]</span>
-              )}{" "}
-              —{" "}
-              {responsible.cro ?? (
-                <span className="rounded bg-offwhite/10 px-1.5 py-0.5 text-blush">[CRO a definir]</span>
-              )}
-            </p>
+            {responsible.name && (
+              <p>
+                Responsável técnica: {responsible.name}
+                {responsible.cro && <> — {responsible.cro}</>}
+              </p>
+            )}
             {company.legalName && company.cnpj && (
               <p>
                 {company.legalName} — CNPJ {company.cnpj}

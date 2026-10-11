@@ -153,14 +153,8 @@ export function Treatments() {
                     <Media
                       asset={t.image}
                       sizes="(min-width: 1024px) 30vw, (min-width: 640px) 50vw, 100vw"
-                      showLabel={false}
                     />
                   </div>
-                  {!t.image.src && (
-                    <span className="absolute bottom-3 left-3 z-[2] rounded-full bg-white/60 px-3 py-1 text-[0.58rem] font-medium tracking-[0.2em] text-ink/70 uppercase backdrop-blur-sm">
-                      Imagem provisória
-                    </span>
-                  )}
                   <span className="absolute top-4 right-4 z-[2] rounded-full bg-offwhite/80 px-3 py-1 text-[0.62rem] font-medium tracking-[0.18em] uppercase backdrop-blur">
                     {t.category}
                   </span>
